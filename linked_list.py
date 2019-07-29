@@ -87,10 +87,44 @@ class LinkedList:
             return 0
         return 1 + self.len_recursive(node.next)
 
+    def swap_nodes(self, k1, k2):
+        # check if keys are same
+        if k1 == k2:
+            return
+        # start at the head
+        prev_1 = None
+        curr_1 = self.head
+        # go through list until we hit k1
+        while curr_1 and curr_1.data != k1:
+            prev_1 = curr_1
+            curr_1 = curr_1.next
+        # go through list until we hit k2
+        prev_2 = None
+        curr_2 = self.head
+        while curr_2 and curr_2.data != k2:
+            prev_2 = curr_2
+            curr_2 = curr_2.next
+        # if k1 or k2 didnt exist in list
+        if not curr_1 or not curr_2:
+            return
+        # curr_1 is our key, and prev_1 is the one before it
+        if prev_1:
+            prev_1.next = curr_2
+        else:
+            self.head = curr_2 # assume head if no previous
+
+        # curr_2 is our key, and prev_2 is the one before it
+        if prev_2:
+            prev_2.next = curr_1
+        else:
+            self.head = curr_1 # assume head if no previous
+
+        curr_1.next, curr_2.next = curr_2.next, curr_1.next # swap
+
 ll = LinkedList()
 ll.append("A")
 ll.append("B")
 ll.append("C")
 ll.append("D")
-print(ll.len_recursive(ll.head))
+ll.swap_nodes('A', 'C')
 ll.print_list()
