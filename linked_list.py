@@ -187,21 +187,31 @@ class LinkedList:
 
         return new_head
 
-ll1 = LinkedList()
-ll2 = LinkedList()
+    def remove_duplicates(self):
+        cur = self.head
+        prev = None
+        dups = dict()
 
-ll1.append(1)
-ll1.append(5)
-ll1.append(7)
-ll1.append(9)
-ll1.append(10)
+        while cur:
+            if cur.data in dups:
+                # remove node
+                prev.next = cur.next
+                cur = None
+            else:
+                # have not encountered element before
+                dups[cur.data] = 1
+                prev = cur
+            cur = prev.next
 
-ll2.append(2)
-ll2.append(3)
-ll2.append(4)
-ll2.append(6)
-ll2.append(8)
+ll = LinkedList()
 
-ll1.merge_sorted(ll2)
+ll.append(1)
+ll.append(1)
+ll.append(5)
+ll.append(7)
+ll.append(9)
+ll.append(9)
+ll.append(10)
 
-ll1.print_list()
+ll.remove_duplicates()
+ll.print_list()
