@@ -142,6 +142,29 @@ class BinaryTree(object):
         right_height = self.height(node.right)
         return 1 + max(left_height, right_height)
 
+    def size(self):
+        if self.root is None:
+            return 0
+
+        stack = Stack()
+        stack.push(self.root)
+        size = 1
+        while stack:
+            node = stack.pop()
+            if node.left:
+                size += 1
+                stack.push(node.left)
+
+            if node.right:
+                size += 1
+                stack.push(node.right)
+        return size
+
+    def size_(self, node):
+        if node is None:
+            return 0
+        return 1 + self.size_(node.left) + self.size_(node.right)
+
 
 tree = BinaryTree(1)
 tree.root.left = Node(2)
@@ -156,3 +179,5 @@ print tree.print_tree('postorder')
 print tree.print_tree('levelorder')
 print tree.print_tree('reverselevelorder')
 print tree.height(tree.root)
+print tree.size()
+print tree.size_(tree.root)
